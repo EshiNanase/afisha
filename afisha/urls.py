@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from afisha.views import show_phones
 
 urlpatterns = [
+    path('', show_phones),
     path('admin/', admin.site.urls),
 ]
