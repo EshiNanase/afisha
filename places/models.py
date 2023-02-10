@@ -4,9 +4,9 @@ from django.db import models
 class Place(models.Model):
 
     title = models.CharField(max_length=256)
+    place_id = models.CharField(max_length=256)
     description_short = models.TextField()
     description_long = models.TextField()
-    coordinates = models.CharField(max_length=256)
     longitude = models.FloatField()
     latitude = models.FloatField()
 
