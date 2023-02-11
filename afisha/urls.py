@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from places.views import MapView
+from places.views import MapView, PlaceJSONAPIView
 
 urlpatterns = [
     path('', MapView.as_view()),
+    path('places/<int:place_id>', PlaceJSONAPIView.as_view()),
     path('admin/', admin.site.urls),
 ]
 
