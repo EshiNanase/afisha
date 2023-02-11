@@ -48,7 +48,7 @@ class PlaceView(DetailView):
 
         details = {
             'title': place.title,
-            'imgs': [image.image.url for image in Image.objects.filter(place=place)],
+            'imgs': [image.image.url for image in Image.objects.filter(place=place).order_by('order')],
             'description_short': place.description_short,
             'description_long': place.description_long,
             'coordinates': {'lng': str(place.longitude), 'lat': str(place.latitude)}
