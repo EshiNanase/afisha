@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, DetailView
 from places.models import Place, Image
 from django.http import JsonResponse
+from django.urls import reverse
 
 
 class MapView(TemplateView):
@@ -27,7 +28,7 @@ class MapView(TemplateView):
                     "properties": {
                         "title": place.title,
                         "placeId": place.place_id,
-                        "detailsUrl": {}
+                        "detailsUrl": reverse('place-detail', args=[place.id])
                     }
                 }
             )

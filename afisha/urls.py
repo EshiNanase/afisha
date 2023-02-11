@@ -21,7 +21,7 @@ from places.views import MapView, PlaceView
 
 urlpatterns = [
     path('', MapView.as_view()),
-    path('places/<int:place_id>', PlaceView.as_view()),
+    path('places/<int:place_id>', PlaceView.as_view(), name='place-detail'),
     path('admin/', admin.site.urls),
 ]
 
