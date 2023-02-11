@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 from places.views import MapView, PlaceView
 
 urlpatterns = [
     path('', MapView.as_view()),
     path('places/<int:place_id>', PlaceView.as_view(), name='place-detail'),
     path('admin/', admin.site.urls),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:
