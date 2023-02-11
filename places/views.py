@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.views.generic import TemplateView
-from places.models import Place
+from places.models import Place, Image
+from django.templatetags.static import static
+from django.conf import settings
+import json
 
 
 class MapView(TemplateView):
@@ -9,20 +12,23 @@ class MapView(TemplateView):
     def __init__(self):
         super(MapView, self).__init__()
 
-        self.data = []
+        self.data = {
+              "type": "FeatureCollection",
+              "features": []
+            }
 
         places = Place.objects.all()
         for place in places:
 
             details = {
                 'title': place.title,
-                'imgs': [],  # TODO
+                'imgs': [image.image.url for image in Image.objects.filter(place=place)],
                 'description_short': place.description_short,
                 'description_long': place.description_long,
                 'coordinates': {'lng': str(place.longitude), 'lat': str(place.latitude)}
             }
 
-            self.data.append(
+            self.data['features'].append(
                 {
                     "type": "Feature",
                     "geometry": {
@@ -32,10 +38,12 @@ class MapView(TemplateView):
                     "properties": {
                         "title": place.title,
                         "placeId": place.place_id,
-                        "detailsUrl": details
+                        "detailsUrl": {}
                     }
                 }
             )
+
+        print(self.data)
 
     def get_context_data(self, **kwargs):
         context = super(MapView, self).get_context_data(**kwargs)

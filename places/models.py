@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse_lazy
+from django.http import HttpRequest
 
 
 class Place(models.Model):
@@ -16,9 +18,12 @@ class Place(models.Model):
 
 class Image(models.Model):
 
-    title = models.CharField(max_length=256)
+    place = models.ForeignKey(to=Place, on_delete=models.CASCADE)
     order = models.IntegerField()
     image = models.ImageField()
 
     def __str__(self):
-        return f'{self.order} {self.title}'
+        return f'{self.order} {self.place.title}'
+
+    def get_absolute_url(self):
+        return HttpRequest.build_absolute_uri(self.image.url)
