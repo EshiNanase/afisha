@@ -1,7 +1,6 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from places.models import Place, Image
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.http import JsonResponse
 
 
 class MapView(TemplateView):
@@ -17,14 +16,6 @@ class MapView(TemplateView):
 
         places = Place.objects.all()
         for place in places:
-
-            details = {
-                'title': place.title,
-                'imgs': [image.image.url for image in Image.objects.filter(place=place)],
-                'description_short': place.description_short,
-                'description_long': place.description_long,
-                'coordinates': {'lng': str(place.longitude), 'lat': str(place.latitude)}
-            }
 
             self.data['features'].append(
                 {
@@ -48,8 +39,17 @@ class MapView(TemplateView):
         return context
 
 
-class PlaceJSONAPIView(APIView):
+class PlaceView(DetailView):
 
-    def get(self, request, place_id, format=None):
-        print(Place.objects.get(id=place_id).title)
-        return Response(Place.objects.get(id=place_id).title)
+    def get(self, request, *args, **kwargs):
+        place_id = self.kwargs['place_id']
+        place = Place.objects.get(id=place_id)
+
+        details = {
+            'title': place.title,
+            'imgs': [image.image.url for image in Image.objects.filter(place=place)],
+            'description_short': place.description_short,
+            'description_long': place.description_long,
+            'coordinates': {'lng': str(place.longitude), 'lat': str(place.latitude)}
+        }
+        return JsonResponse(details)

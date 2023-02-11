@@ -1,5 +1,5 @@
 from django.db import models
-from django.http import HttpRequest
+from django.conf import settings
 
 
 class Place(models.Model):
@@ -24,5 +24,5 @@ class Image(models.Model):
     def __str__(self):
         return f'{self.order} {self.place.title}'
 
-    def get_absolute_url(self):
-        return HttpRequest.build_absolute_uri(self.image.url)
+    def get_absolute_image_url(self):
+        return "{0}{1}".format(settings.MEDIA_URL, self.image.url)
