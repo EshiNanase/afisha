@@ -32,5 +32,6 @@ DEBUG = true/false
 ## Running
 
 The code should be ran in cmd like so:
-
+```
+python managa.py runserver
 ```

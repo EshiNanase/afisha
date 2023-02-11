@@ -3,7 +3,6 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from places.models import Place, Image
-from django.core.files.images import ImageFile
 
 
 class Command(BaseCommand):
