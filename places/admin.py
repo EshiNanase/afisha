@@ -23,7 +23,7 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     inlines = [ImageInLine]
     fieldsets = (
         (None, {
-            'fields': ('title', 'place_id', 'description_short', 'description_long', ('longitude', 'latitude'))
+            'fields': ('title', 'description_short', 'description_long', ('longitude', 'latitude'))
         }),
     )
 

@@ -27,7 +27,7 @@ class MapView(TemplateView):
                     },
                     "properties": {
                         "title": place.title,
-                        "placeId": place.place_id,
+                        "placeId": place.id,
                         "detailsUrl": reverse('place-detail', args=[place.id])
                     }
                 }
