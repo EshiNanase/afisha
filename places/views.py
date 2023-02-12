@@ -1,7 +1,8 @@
-from django.views.generic import TemplateView, DetailView
-from places.models import Place, Image
 from django.http import JsonResponse
 from django.urls import reverse
+from django.views.generic import DetailView, TemplateView
+
+from places.models import Image, Place
 
 
 class MapView(TemplateView):

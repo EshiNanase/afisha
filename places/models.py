@@ -1,9 +1,9 @@
+from tempfile import NamedTemporaryFile
+from urllib.request import urlopen
+
+from django.core.files import File
 from django.db import models
 from tinymce import models as tinymce_models
-from django.core.files import File
-from django.core.files.images import ImageFile
-from urllib.request import urlopen
-from tempfile import NamedTemporaryFile
 
 
 class Place(models.Model):
@@ -43,4 +43,3 @@ class Image(models.Model):
             img_tmp.flush()
         img = File(img_tmp)
         self.image.save(f'{self.place.title}.jpg', img)
-

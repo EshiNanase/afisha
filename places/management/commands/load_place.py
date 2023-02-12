@@ -1,9 +1,10 @@
-from django.core.management.base import BaseCommand
+import json
+
 import requests
 from bs4 import BeautifulSoup
-import json
-from places.models import Place, Image
-from django.core.files.images import ImageFile
+from django.core.management.base import BaseCommand
+
+from places.models import Image, Place
 
 
 class Command(BaseCommand):
@@ -37,7 +38,3 @@ class Command(BaseCommand):
             )
             obj.get_image_from_url()
             obj.save()
-
-
-
-
