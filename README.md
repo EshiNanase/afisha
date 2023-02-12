@@ -15,6 +15,7 @@ First, you need to clone the code:
 
 ```
 git clone https://github.com/EshiNanase/afisha.git
+git checkout pro
 ```
 Second, you need to install requirements.txt:
 
@@ -33,4 +34,6 @@ DEBUG = true/false
 
 The code should be ran in cmd like so:
 
+```
+python manage.py runserver
 ```
