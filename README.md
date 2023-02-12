@@ -1,6 +1,7 @@
 # Sightseeings map by Artem
 
 Map of Moscow by Artem to show his favourite sightseeings, museums etc.
+Check it out: http://eshinanase.pythonanywhere.com/
 
 ## Prerequisites
 
