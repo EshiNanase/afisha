@@ -33,10 +33,5 @@ DEBUG = true/false
 
 The code should be ran in cmd like so:
 ```
-<<<<<<< HEAD
 python managa.py runserver
 ```
-=======
-python manage.py runserver
-```
->>>>>>> 79424b13ab068027c673821c1c716b0c4353937e
