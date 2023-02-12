@@ -42,5 +42,5 @@ class Image(models.Model):
             img_tmp.write(uo.read())
             img_tmp.flush()
         img = File(img_tmp)
-        self.image.save(f'{self.place.title}', img)
+        self.image.save(f'{self.place.title}.jpg', img)
 
