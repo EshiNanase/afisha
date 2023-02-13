@@ -24,12 +24,14 @@ class Command(BaseCommand):
             data += i.get_text()
         data = json.loads(data)
 
-        place, created = Place.objects.get_or_create(
+        defaults = {'title': data['title']}
+        place, created = Place.objects.update_or_create(
             title=data['title'],
             short_description=data['description_short'],
             long_description=data['description_long'],
             longitude=data['coordinates']['lng'],
             latitude=data['coordinates']['lat'],
+            defaults=defaults
         )
 
         for image in data['imgs']:
