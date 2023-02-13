@@ -21,8 +21,7 @@ from django.urls import include, path
 from places.views import MapView, PlaceView
 
 urlpatterns = [
-    path('', MapView.as_view()),
-    path('places/<int:place_id>', PlaceView.as_view(), name='place-detail'),
+    path('', include('places.urls')),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
 ]
