@@ -15,6 +15,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         link = options['link']
         response = requests.get(link)
+        response.raise_for_status()
 
         soup = BeautifulSoup(response.content, 'html.parser')
         text = soup.find_all('td', class_='blob-code blob-code-inner js-file-line')
