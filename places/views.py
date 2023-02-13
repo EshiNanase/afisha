@@ -29,7 +29,7 @@ class MapView(TemplateView):
                     "properties": {
                         "title": place.title,
                         "placeId": place.id,
-                        "detailsUrl": reverse('place-detail', args=[place.id])
+                        "detailsUrl": reverse('places:place-detail', args=[place.id])
                     }
                 }
             )
@@ -47,8 +47,8 @@ class PlaceView(DetailView):
         details = {
             'title': place.title,
             'imgs': [image.image.url for image in Image.objects.filter(place=place).order_by('order')],
-            'description_short': place.short_description,
-            'description_long': place.long_description,
+            'short_description': place.short_description,
+            'long_description': place.long_description,
             'coordinates': {'lng': str(place.longitude), 'lat': str(place.latitude)}
         }
         return JsonResponse(details)
