@@ -9,10 +9,10 @@ from tinymce import models as tinymce_models
 class Place(models.Model):
 
     title = models.CharField(max_length=256, verbose_name='Название')
-    description_short = tinymce_models.HTMLField(verbose_name='Короткое описание')
-    description_long = tinymce_models.HTMLField(verbose_name='Подробное описание')
-    longitude = models.FloatField(verbose_name='Долгота')
-    latitude = models.FloatField(verbose_name='Широота')
+    description_short = tinymce_models.HTMLField(blank=True, verbose_name='Короткое описание')
+    description_long = tinymce_models.HTMLField(blank=True, verbose_name='Подробное описание')
+    longitude = models.FloatField(null=True, verbose_name='Долгота')
+    latitude = models.FloatField(null=True, verbose_name='Широота')
 
     def __str__(self):
         return self.title

@@ -8,18 +8,17 @@ from places.models import Image, Place
 class MapView(TemplateView):
     template_name = 'index.html'
 
-    def __init__(self):
-        super(MapView, self).__init__()
+    def get_context_data(self, **kwargs):
+        context = super(MapView, self).get_context_data(**kwargs)
 
-        self.data = {
-              "type": "FeatureCollection",
-              "features": []
-            }
+        data = {
+            "type": "FeatureCollection",
+            "features": []
+        }
 
         places = Place.objects.all()
         for place in places:
-
-            self.data['features'].append(
+            data['features'].append(
                 {
                     "type": "Feature",
                     "geometry": {
@@ -33,10 +32,7 @@ class MapView(TemplateView):
                     }
                 }
             )
-
-    def get_context_data(self, **kwargs):
-        context = super(MapView, self).get_context_data(**kwargs)
-        context['data'] = self.data
+        context['data'] = data
 
         return context
 
