@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.urls import reverse
 from django.views.generic import DetailView, TemplateView
+from django.shortcuts import get_object_or_404
 
 from places.models import Image, Place
 
@@ -41,13 +42,13 @@ class PlaceView(DetailView):
 
     def get(self, request, *args, **kwargs):
         place_id = self.kwargs['place_id']
-        place = Place.objects.get(id=place_id)
+        place = get_object_or_404(Place, id=place_id)
 
         details = {
             'title': place.title,
             'imgs': [image.image.url for image in Image.objects.filter(place=place).order_by('order')],
-            'description_short': place.description_short,
-            'description_long': place.description_long,
+            'description_short': place.short_description,
+            'description_long': place.long_description,
             'coordinates': {'lng': str(place.longitude), 'lat': str(place.latitude)}
         }
         return JsonResponse(details)
