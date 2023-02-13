@@ -34,8 +34,8 @@ Json example: https://github.com/devmanorg/where-to-go-places/blob/master/places
 The code needs .env file with such environment variables as:
 
 ```
-SECRET_KEY = django project secret key
-DEBUG = true/false
+SECRET_KEY = you need one to run the project, keep it in secret!
+DEBUG = should be True if you are in development mode and should be False if in production
 ```
 ## Running
 
