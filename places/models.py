@@ -8,11 +8,11 @@ from tinymce import models as tinymce_models
 
 class Place(models.Model):
 
-    title = models.CharField(max_length=256, verbose_name='Название')
+    title = models.CharField(blank=False, max_length=256, verbose_name='Название')
     short_description = tinymce_models.HTMLField(blank=True, verbose_name='Короткое описание')
     long_description = tinymce_models.HTMLField(blank=True, verbose_name='Подробное описание')
-    longitude = models.FloatField(null=True, verbose_name='Долгота')
-    latitude = models.FloatField(null=True, verbose_name='Широта')
+    longitude = models.FloatField(null=False, verbose_name='Долгота')
+    latitude = models.FloatField(null=False, verbose_name='Широта')
 
     def __str__(self):
         return self.title
@@ -40,8 +40,10 @@ class Image(models.Model):
     def get_image_from_url(self):
         img_tmp = NamedTemporaryFile(delete=True)
         with urlopen(self.image_url) as uo:
-            assert uo.status == 200
-            img_tmp.write(uo.read())
-            img_tmp.flush()
+            if uo.status == 200:
+                img_tmp.write(uo.read())
+                img_tmp.flush()
+            else:
+                raise ConnectionError
         img = File(img_tmp)
         self.image.save(f'{self.place.title}.jpg', img)
