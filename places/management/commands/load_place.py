@@ -24,16 +24,18 @@ class Command(BaseCommand):
             data += i.get_text()
         data = json.loads(data)
 
-        defaults = {'title': data['title']}
+        updated_values = {
+            'short_description': data['description_short'],
+            'long_description': data['description_long'],
+            'longitude': data['coordinates']['lng'],
+            'latitude': data['coordinates']['lat']
+        }
         place, created = Place.objects.update_or_create(
             title=data['title'],
-            short_description=data['description_short'],
-            long_description=data['description_long'],
-            longitude=data['coordinates']['lng'],
-            latitude=data['coordinates']['lat'],
-            defaults=defaults
+            defaults=updated_values
         )
 
+        Image.objects.prefetch_related('place').delete()
         for image in data['imgs']:
             obj, created = Image.objects.get_or_create(
                 place=place,

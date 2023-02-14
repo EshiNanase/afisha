@@ -1,6 +1,5 @@
 from adminsortable2.admin import SortableAdminBase, SortableInlineAdminMixin
 from django.contrib import admin
-from django.utils.safestring import mark_safe
 from django.utils.html import format_html
 
 from places.models import Image, Place

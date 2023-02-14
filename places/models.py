@@ -44,6 +44,6 @@ class Image(models.Model):
                 img_tmp.write(uo.read())
                 img_tmp.flush()
             else:
-                raise ConnectionError
+                raise ConnectionError('Image was not found!')
         img = File(img_tmp)
         self.image.save(f'{self.place.title}.jpg', img)
