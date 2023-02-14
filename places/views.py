@@ -10,8 +10,7 @@ class MapView(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
-        context = super(MapView, self).get_context_data(**kwargs)
-
+        context = {}
         data = {
             "type": "FeatureCollection",
             "features": []
@@ -42,7 +41,7 @@ class PlaceView(DetailView):
 
     def get(self, request, *args, **kwargs):
         place_id = self.kwargs['place_id']
-        place = get_object_or_404(Place, id=place_id)
+        place = get_object_or_404(Place.objects.prefetch_related(), id=place_id)
 
         details = {
             'title': place.title,
@@ -51,4 +50,4 @@ class PlaceView(DetailView):
             'long_description': place.long_description,
             'coordinates': {'lng': str(place.longitude), 'lat': str(place.latitude)}
         }
-        return JsonResponse(details)
+        return JsonResponse(details, safe=False, json_dumps_params={'indent': 5, 'ensure_ascii': False})

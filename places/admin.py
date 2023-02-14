@@ -1,6 +1,7 @@
 from adminsortable2.admin import SortableAdminBase, SortableInlineAdminMixin
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 from places.models import Image, Place
 
@@ -14,9 +15,15 @@ class ImageInLine(SortableInlineAdminMixin, admin.TabularInline):
     def get_preview_image(self, obj):
         if not obj.image:
             return '-'
-        return mark_safe(f'<img src="{obj.image.url}" height="{130}" />')
+        return format_html('<img src="{}" height="{}" />',
+                           obj.image.url, 130)
 
     get_preview_image.short_description = 'Image Preview'
+
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    model = Image
 
 
 @admin.register(Place)
@@ -27,6 +34,3 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
             'fields': ('title', 'short_description', 'long_description', ('longitude', 'latitude'))
         }),
     )
-
-
-admin.site.register(Image)

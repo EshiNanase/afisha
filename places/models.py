@@ -12,7 +12,7 @@ class Place(models.Model):
     short_description = tinymce_models.HTMLField(blank=True, verbose_name='Короткое описание')
     long_description = tinymce_models.HTMLField(blank=True, verbose_name='Подробное описание')
     longitude = models.FloatField(null=True, verbose_name='Долгота')
-    latitude = models.FloatField(null=True, verbose_name='Широота')
+    latitude = models.FloatField(null=True, verbose_name='Широта')
 
     def __str__(self):
         return self.title
@@ -24,9 +24,9 @@ class Place(models.Model):
 
 class Image(models.Model):
 
-    place = models.ForeignKey(to=Place, on_delete=models.CASCADE, verbose_name='Место')
-    order = models.PositiveIntegerField(default=0, verbose_name='Порядок изображений')
-    image = models.ImageField(null=True, blank=True, verbose_name='Изображение')
+    place = models.ForeignKey(null=False, to=Place, on_delete=models.CASCADE, verbose_name='Место')
+    order = models.PositiveIntegerField(blank=True, default=0, verbose_name='Порядок изображений')
+    image = models.ImageField(null=False, blank=False, verbose_name='Изображение')
     image_url = models.URLField(null=True, blank=True, verbose_name='Ссылка на изображение')
 
     class Meta:
