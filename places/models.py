@@ -25,7 +25,7 @@ class Place(models.Model):
 class Image(models.Model):
 
     place = models.ForeignKey(null=False, to=Place, on_delete=models.CASCADE, verbose_name='Место')
-    order = models.PositiveIntegerField(blank=False, default=0, verbose_name='Порядок изображений')
+    order = models.PositiveIntegerField(blank=True, default=0, verbose_name='Порядок изображений')
     image = models.ImageField(null=False, blank=False, verbose_name='Изображение')
     image_url = models.URLField(null=True, blank=True, verbose_name='Ссылка на изображение')
 
